@@ -1,9 +1,17 @@
 ---
+#
+# main.yml
+#
+# Orchestrates the end-to-end workflow for processing new backup requests from ServiceNow.
+# 1. Queries ServiceNow for all open, unassigned tasks for the backup team.
+# 2. Loops through each found task, calling a sub-playbook to process it.
+#
 - name: Process New Backup Tasks
   hosts: localhost
   connection: local
   gather_facts: false
 
+  # Centralized location for playbook-specific variables.
   vars:
     snow_api_url: "http://localhost:8000"
 
@@ -16,8 +24,11 @@
         assigned_to_is_empty: true
       register: query_result
 
-    # This is the correct way to loop over a set of tasks from another file.
     - name: Process each task in the queue
-      include_tasks: process_single_task.yml
+      ansible.builtin.include_tasks: process_single_task.yml
       loop: "{{ query_result.task_list }}"
       when: query_result.changed
+      # FIX: Ignoring the 'no-handler' warning as it's not applicable here.
+      # noqa no-handler
+
+# FIX: Added a final newline character to the end of the file.

@@ -1,22 +1,24 @@
-INFO:     Started server process [25428]
+INFO:     Started server process [33657]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     127.0.0.1:62720 - "GET /api/now/v2/table/sc_task?sysparm_query=state=new%5Eassignment_group=backup%20team%5Eassigned_toISEMPTY HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49250 - "GET /api/now/v2/table/sc_task?sysparm_query=state=new%5Eassignment_group=backup%20team%5Eassigned_toISEMPTY HTTP/1.1" 200 OK
 --- SCTASK API: UPDATED TASK ffffffffffffffffffffffffffffffff: {'number': 'SCTASK001000', 'sys_id': 'ffffffffffffffffffffffffffffffff', 'state': 'work in progress', 'assigned_to': 'virtual-engineer', 'assignment_group': 'backup team', 'work_notes': 'Automation started. Preparing to create client in NetWorker.', 'short_description': 'Provision New Backup: badhost.f3.lan', 'u_backup_server': 'networker-prod-1.f3.lan', 'u_backup_tag': 'mssql', 'ci_fqdn': 'badhost.f3.lan', 'client_id_from_networker': ''}
-INFO:     127.0.0.1:62722 - "PATCH /api/now/v2/table/sc_task/ffffffffffffffffffffffffffffffff HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49251 - "PATCH /api/now/v2/table/sc_task/ffffffffffffffffffffffffffffffff HTTP/1.1" 200 OK
 --- SCTASK API: UPDATED TASK ffffffffffffffffffffffffffffffff: {'number': 'SCTASK001000', 'sys_id': 'ffffffffffffffffffffffffffffffff', 'state': '1', 'assigned_to': '', 'assignment_group': 'backup team', 'work_notes': "Automation started. Preparing to create client in NetWorker.\nAutomation failed. Error: Failed to create client 'badhost.f3.lan': nodename nor servname provided, or not known (networker-prod-1.f3.lan:8001)\nReturning ticket to the queue.", 'short_description': 'Provision New Backup: badhost.f3.lan', 'u_backup_server': 'networker-prod-1.f3.lan', 'u_backup_tag': 'mssql', 'ci_fqdn': 'badhost.f3.lan', 'client_id_from_networker': ''}
-INFO:     127.0.0.1:62723 - "PATCH /api/now/v2/table/sc_task/ffffffffffffffffffffffffffffffff HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49253 - "PATCH /api/now/v2/table/sc_task/ffffffffffffffffffffffffffffffff HTTP/1.1" 200 OK
 --- SCTASK API: UPDATED TASK a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6: {'number': 'SCTASK001001', 'sys_id': 'a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6', 'state': 'work in progress', 'assigned_to': 'virtual-engineer', 'assignment_group': 'backup team', 'work_notes': 'Automation started. Preparing to create client in NetWorker.', 'short_description': 'Provision New Backup: db01.f3.lan', 'u_backup_server': 'networker-prod.f3.lan', 'u_backup_tag': 'mssql', 'ci_fqdn': 'db01.f3.lan', 'client_id_from_networker': 'd5b545cb000000045bc834515bc83450'}
-INFO:     127.0.0.1:62724 - "PATCH /api/now/v2/table/sc_task/a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6 HTTP/1.1" 200 OK
---- SCTASK API: UPDATED TASK a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6: {'number': 'SCTASK001001', 'sys_id': 'a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6', 'state': '3', 'assigned_to': 'virtual-engineer', 'assignment_group': 'backup team', 'work_notes': 'Automation started. Preparing to create client in NetWorker.\nNetWorker client created successfully. New Client ID:', 'short_description': 'Provision New Backup: db01.f3.lan', 'u_backup_server': 'networker-prod.f3.lan', 'u_backup_tag': 'mssql', 'ci_fqdn': 'db01.f3.lan', 'client_id_from_networker': 'd5b545cb000000045bc834515bc83450'}
-INFO:     127.0.0.1:62727 - "PATCH /api/now/v2/table/sc_task/a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49256 - "PATCH /api/now/v2/table/sc_task/a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6 HTTP/1.1" 200 OK
+--- SCTASK API: UPDATED TASK a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6: {'number': 'SCTASK001001', 'sys_id': 'a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6', 'state': '3', 'assigned_to': 'virtual-engineer', 'assignment_group': 'backup team', 'work_notes': 'Automation started. Preparing to create client in NetWorker.\nNetWorker client created successfully. New Client ID: 2177c8a0659a479ba531afa3cbc18c36', 'short_description': 'Provision New Backup: db01.f3.lan', 'u_backup_server': 'networker-prod.f3.lan', 'u_backup_tag': 'mssql', 'ci_fqdn': 'db01.f3.lan', 'client_id_from_networker': 'd5b545cb000000045bc834515bc83450'}
+INFO:     127.0.0.1:49259 - "PATCH /api/now/v2/table/sc_task/a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49262 - "GET /api/now/v2/table/sc_task/a1a2a3a4b5b6c7d8e9f0a1b2c3d4e5f6 HTTP/1.1" 200 OK
 --- SCTASK API: UPDATED TASK g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6: {'number': 'SCTASK001004', 'sys_id': 'g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6', 'state': 'work in progress', 'assigned_to': 'virtual-engineer', 'assignment_group': 'backup team', 'work_notes': 'Automation started. Preparing to create client in NetWorker.', 'short_description': 'Provision New Backup: app-lnx01.f3.lan', 'u_backup_server': 'networker-prod.f3.lan', 'u_backup_tag': 'filesystem-unix', 'ci_fqdn': 'app-lnx01.f3.lan', 'client_id_from_networker': 'c3d4e5f6000000045bc834515bc83450'}
-INFO:     127.0.0.1:62728 - "PATCH /api/now/v2/table/sc_task/g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6 HTTP/1.1" 200 OK
---- SCTASK API: UPDATED TASK g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6: {'number': 'SCTASK001004', 'sys_id': 'g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6', 'state': '3', 'assigned_to': 'virtual-engineer', 'assignment_group': 'backup team', 'work_notes': 'Automation started. Preparing to create client in NetWorker.\nNetWorker client created successfully. New Client ID:', 'short_description': 'Provision New Backup: app-lnx01.f3.lan', 'u_backup_server': 'networker-prod.f3.lan', 'u_backup_tag': 'filesystem-unix', 'ci_fqdn': 'app-lnx01.f3.lan', 'client_id_from_networker': 'c3d4e5f6000000045bc834515bc83450'}
-INFO:     127.0.0.1:62730 - "PATCH /api/now/v2/table/sc_task/g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62733 - "GET /debug/dump_db HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49263 - "PATCH /api/now/v2/table/sc_task/g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6 HTTP/1.1" 200 OK
+--- SCTASK API: UPDATED TASK g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6: {'number': 'SCTASK001004', 'sys_id': 'g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6', 'state': '3', 'assigned_to': 'virtual-engineer', 'assignment_group': 'backup team', 'work_notes': 'Automation started. Preparing to create client in NetWorker.\nNetWorker client created successfully. New Client ID: 8a02c768131c4d68adefb32b3be67adf', 'short_description': 'Provision New Backup: app-lnx01.f3.lan', 'u_backup_server': 'networker-prod.f3.lan', 'u_backup_tag': 'filesystem-unix', 'ci_fqdn': 'app-lnx01.f3.lan', 'client_id_from_networker': 'c3d4e5f6000000045bc834515bc83450'}
+INFO:     127.0.0.1:49266 - "PATCH /api/now/v2/table/sc_task/g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49268 - "GET /api/now/v2/table/sc_task/g1g2g3g4h5h6i7j8k9l0a1b2c3d4e5f6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49270 - "GET /debug/dump_db HTTP/1.1" 200 OK
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [25428]
+INFO:     Finished server process [33657]

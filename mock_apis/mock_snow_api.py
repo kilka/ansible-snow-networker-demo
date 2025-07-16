@@ -61,7 +61,7 @@ mock_db = {
         "number": "SCTASK001003",
         "sys_id": "e1e2e3e4f5f6a7b8c9d0e1f2a3b4c5d6",
         "state": "work in progress",
-        "assigned_to": "virtual-engineer",
+        "assigned_to": "Some Guy",
         "assignment_group": "backup team",
         "work_notes": "",
         "short_description": "Provision New Backup: syb-prod01.f3.lan",

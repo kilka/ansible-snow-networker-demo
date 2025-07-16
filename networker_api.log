@@ -1,13 +1,15 @@
-INFO:     Started server process [25429]
+INFO:     Started server process [33658]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
 --- NETWORKER API: CREATED CLIENT 'db01.f3.lan' ---
-INFO:     127.0.0.1:62726 - "POST /nwrestapi/v3/global/clients HTTP/1.1" 201 Created
+INFO:     127.0.0.1:49258 - "POST /nwrestapi/v3/global/clients HTTP/1.1" 201 Created
+INFO:     127.0.0.1:49261 - "GET /nwrestapi/v3/global/clients?hostname=db01.f3.lan HTTP/1.1" 200 OK
 --- NETWORKER API: CREATED CLIENT 'app-lnx01.f3.lan' ---
-INFO:     127.0.0.1:62729 - "POST /nwrestapi/v3/global/clients HTTP/1.1" 201 Created
-INFO:     127.0.0.1:62735 - "GET /debug/dump_db HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49264 - "POST /nwrestapi/v3/global/clients HTTP/1.1" 201 Created
+INFO:     127.0.0.1:49267 - "GET /nwrestapi/v3/global/clients?hostname=app-lnx01.f3.lan HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49272 - "GET /debug/dump_db HTTP/1.1" 200 OK
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [25429]
+INFO:     Finished server process [33658]

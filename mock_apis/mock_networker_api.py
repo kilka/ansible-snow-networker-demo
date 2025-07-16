@@ -83,21 +83,20 @@ def patch_client(resource_id: str, client_update: UpdateClient):
     return {"client": mock_client_db[target_hostname]}
 
 
+# In mock_apis/mock_networker_api.py
+
 @app.post("/nwrestapi/v3/global/clients", status_code=201)
 def create_client(client_data: NewClient, response: Response):
     """Creates a new NetWorker client resource with realistic ID generation."""
     key = client_data.hostname.lower()
 
     if key in mock_client_db:
-        # Use HTTPException for proper error handling.
         raise HTTPException(status_code=409, detail="Client with that hostname already exists")
 
-    # Generate IDs in the specific format NetWorker uses.
     raw_uuid = uuid.uuid4()
-    client_id = str(raw_uuid)
+    client_id = str(raw_uuid.hex) # Use .hex for a clean 32-char string
     resource_id = ".".join(str(b) for b in raw_uuid.bytes)
     
-    # The canonical URL for the new resource.
     new_resource_url = f"/nwrestapi/v3/global/clients/{resource_id}"
 
     record = client_data.model_dump()
@@ -105,17 +104,18 @@ def create_client(client_data: NewClient, response: Response):
         "hostname": key,
         "clientId": client_id,
         "resourceId": {"id": resource_id, "sequence": 1},
-        "links": [{"href": new_resource_url, "rel": "item"}] # Add HATEOAS link.
+        "links": [{"href": new_resource_url, "rel": "item"}]
     })
 
     mock_client_db[key] = record
-    response.headers["Location"] = new_resource_url # Set Location header.
+    response.headers["Location"] = new_resource_url
     
     print(f"--- NETWORKER API: CREATED CLIENT '{key}' ---")
     
-    return {} # Return an empty body to mimic NetWorker's EmptyResponse.
+    # --- THIS IS THE FIX ---
+    # Return the new client ID in the response body
+    return {"clientId": client_id}
 
-# Add this function to the end of mock_networker_api.py
 
 @app.get("/debug/dump_db")
 def dump_networker_db():

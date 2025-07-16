@@ -1,9 +1,15 @@
 ---
-# This block processes a single task item from the loop.
-# The current task is referred to as 'item'.
-- name: "PROCESS: {{ item.number }} - {{ item.short_description }}"
+#
+# process_single_task.yml
+#
+# This file contains the complete logic to process a single ServiceNow task.
+# It is designed to be called from a loop in a parent playbook and
+# expects the current loop item to be available as the 'item' variable.
+#
+# FIX: Using Jinja2 concatenation to satisfy the linter rule.
+- name: "Process Task | {{ item.number ~ ' - ' ~ item.short_description }}"
   block:
-    - name: 2. Assign task and add initial work note
+    - name: Assign task and add initial work note
       snow_task_update:
         api_url: "{{ snow_api_url }}"
         sys_id: "{{ item.sys_id }}"
@@ -11,7 +17,7 @@
         state: "work in progress"
         work_notes: "Automation started. Preparing to create client in NetWorker."
 
-    - name: 3. Create client record in NetWorker
+    - name: Create client record in NetWorker
       networker_client_create:
         api_url: "http://{{ item.u_backup_server }}:8001"
         hostname: "{{ item.ci_fqdn }}"
@@ -20,12 +26,42 @@
         clientDirectEnabled: true
       register: networker_result
 
-    - name: 4. Add final work note and close task
+    - name: Add final work note and close task
       snow_task_update:
         api_url: "{{ snow_api_url }}"
         sys_id: "{{ item.sys_id }}"
         state: "3"
-        work_notes: "NetWorker client created successfully. New Client ID: {{ networker_result.clientId }}"
+        work_notes: "NetWorker client created successfully. New Client ID: {{ networker_result.networker_details.clientId }}"
+      when: not networker_result.failed
+
+    - name: VERIFY - Client was created in NetWorker
+      networker_client_query:
+        api_url: "http://{{ item.u_backup_server }}:8001"
+        hostname: "{{ item.ci_fqdn }}"
+      register: verify_networker_client
+      when: not networker_result.failed
+
+    - name: ASSERT - NetWorker client exists
+      ansible.builtin.assert:
+        that:
+          - "verify_networker_client.found"
+        success_msg: "SUCCESS: Verified client '{{ item.ci_fqdn }}' exists in NetWorker."
+      when: not networker_result.failed
+
+    - name: VERIFY - Get final state of ServiceNow Task
+      snow_task_get:
+        api_url: "{{ snow_api_url }}"
+        sys_id: "{{ item.sys_id }}"
+      register: verify_snow_task
+      when: not networker_result.failed
+
+    - name: ASSERT - ServiceNow task is closed correctly
+      ansible.builtin.assert:
+        that:
+          - "verify_snow_task.found"
+          - "verify_snow_task.task_details.state == '3'"
+          - "'NetWorker client created successfully' in verify_snow_task.task_details.work_notes"
+        success_msg: "SUCCESS: Verified task {{ item.number }} is Closed Complete."
       when: not networker_result.failed
 
   rescue:
