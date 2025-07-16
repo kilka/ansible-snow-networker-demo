@@ -1,0 +1,23 @@
+---
+- name: Process New Backup Tasks
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    snow_api_url: "http://localhost:8000"
+
+  tasks:
+    - name: 1. Check for all new backup request tasks in SNOW queue
+      snow_task_query:
+        api_url: "{{ snow_api_url }}"
+        state: "new"
+        assignment_group: "backup team"
+        assigned_to_is_empty: true
+      register: query_result
+
+    # This is the correct way to loop over a set of tasks from another file.
+    - name: Process each task in the queue
+      include_tasks: process_single_task.yml
+      loop: "{{ query_result.task_list }}"
+      when: query_result.changed

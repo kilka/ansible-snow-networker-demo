@@ -1,0 +1,40 @@
+---
+# This block processes a single task item from the loop.
+# The current task is referred to as 'item'.
+- name: "PROCESS: {{ item.number }} - {{ item.short_description }}"
+  block:
+    - name: 2. Assign task and add initial work note
+      snow_task_update:
+        api_url: "{{ snow_api_url }}"
+        sys_id: "{{ item.sys_id }}"
+        assigned_to: "virtual-engineer"
+        state: "work in progress"
+        work_notes: "Automation started. Preparing to create client in NetWorker."
+
+    - name: 3. Create client record in NetWorker
+      networker_client_create:
+        api_url: "http://{{ item.u_backup_server }}:8001"
+        hostname: "{{ item.ci_fqdn }}"
+        tags: ["{{ item.u_backup_tag }}"]
+        scheduledBackup: true
+        clientDirectEnabled: true
+      register: networker_result
+
+    - name: 4. Add final work note and close task
+      snow_task_update:
+        api_url: "{{ snow_api_url }}"
+        sys_id: "{{ item.sys_id }}"
+        state: "3"
+        work_notes: "NetWorker client created successfully. New Client ID: {{ networker_result.clientId }}"
+      when: not networker_result.failed
+
+  rescue:
+    - name: RESCUE - Update SNOW ticket with failure and unassign
+      snow_task_update:
+        api_url: "{{ snow_api_url }}"
+        sys_id: "{{ item.sys_id }}"
+        state: "1"
+        assigned_to: ""
+        work_notes: |
+          Automation failed. Error: {{ ansible_failed_result.msg }}
+          Returning ticket to the queue.
